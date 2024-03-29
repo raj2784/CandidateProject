@@ -1,0 +1,51 @@
+﻿@model CandidateProject.ViewModels.CartonDetailsViewModel
+
+@{
+    ViewBag.Title = "View Carton Equipment";
+}
+
+
+<h2>View Carton Equipment</h2>
+
+<h3>
+    Item belongs to Carton Number: @Html.DisplayFor(model => model.CartonNumber)
+    @*Total Item : @Html.DisplayFor(model => model.CartonItem)*@
+</h3>
+
+@Html.ActionLink("RemoveAllItem", "RemoveAllEquipmentFromCarton", new { id = Model.CartonId }, new { })
+
+<table class="table" id="tbl">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Equipment.FirstOrDefault().ModelType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Equipment.FirstOrDefault().SerialNumber)
+        </th>
+        <th>
+            Remove
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model.Equipment)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModelType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerialNumber)
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "RemoveEquipmentOnCarton", new { cartonId = Model.CartonId, equipmentId = item.Id })
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
